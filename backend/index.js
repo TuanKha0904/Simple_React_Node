@@ -1,16 +1,14 @@
 const express = require("express");
-const mysql = require("mysql2");
+const bodyParser = require("body-parser");
+const AuthRouter = require("./routes/auth");
+require("./untils/database");
+require("dotenv").config();
+
+const PORT = process.env.PORT || 3001;
+
 const app = express();
-const connectDB = async () => {
-    mysql.createConnection({
-        host: "localhost:3306",
-        user: "root",
-        password: "root123",
-        database: "Simple"
-    });
-}
-connectDB();
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
-app.listen(5000);
+
+app.use(bodyParser.json());
+app.use(AuthRouter);
+
+app.listen(PORT);
