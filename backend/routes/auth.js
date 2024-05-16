@@ -1,10 +1,10 @@
 const express = require("express");
-const mysqlConnection = require("../untils/database");
+require("../untils/database");
 
 const AuthRouter = express.Router();
 
-AuthRouter.get("/", (req, res) => {
-    res.send("Hello World!");
+AuthRouter.get("/api", (req, res) => {
+    res.json({message:"Hello World!", status: 200});
 });
 
 module.exports = AuthRouter;
