@@ -11,7 +11,7 @@ const USER = function (user) {
 USER.checkExistedUser = async function (loginId) {
     try {
         const [checkUser] =  await db.query("SELECT * FROM USER WHERE LOGIN_ID = ?", [loginId]);
-        return checkUser.length > 0;
+        return checkUser[0];
     } catch (err) {
         throw new Error('Database Error');
     }

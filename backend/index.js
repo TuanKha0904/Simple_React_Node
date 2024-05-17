@@ -2,8 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const AuthRouter = require("./routes/auth.route");
 const cors = require("cors");
-require("./untils/database");
 require("dotenv").config();
+require("./untils/database");
 
 const PORT = process.env.PORT || 80;
 
