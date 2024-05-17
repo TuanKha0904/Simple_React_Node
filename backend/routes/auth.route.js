@@ -1,10 +1,9 @@
 const express = require("express");
+const authController = require("../controllers/auth.controller");
 require("../untils/database");
 
 const AuthRouter = express.Router();
 
-AuthRouter.get("/api", (req, res) => {
-    res.json({message:"Hello World!", status: 200});
-});
+AuthRouter.post("/api/register", authController.register);
 
 module.exports = AuthRouter;
