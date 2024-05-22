@@ -1,12 +1,12 @@
 const userModel = require('../models/user.model');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.JWT_SECRET;
-
 
 exports.register = async function (req, res) {
     try {
         const userExists = await userModel.checkExistedUser(req.body.LOGIN_ID);
+       
         if (userExists) {
             return res.status(400).json({
                 status: 400,
@@ -36,6 +36,11 @@ exports.register = async function (req, res) {
 exports.login = async function (req, res) {
     try {
         const user = await userModel.checkExistedUser(req.body.LOGIN_ID);
+        console.log(bcrypt.compareSync(req.body.PASSWORD, user.PASSWORD));
+        console.log(user.PASSWORD);
+        console.log(bcrypt.hashSync(req.body.PASSWORD, 12));
+        // console.log(user);
+        // console.log(bcrypt.hashSync(req.body.PASSWORD, 12));
         if (user && bcrypt.compareSync(req.body.PASSWORD, user.PASSWORD) && user.DEL_FLG === 0) {
             const token = jwt.sign({ userId: user.ID, loginId: user.LOGIN_ID }, secretKey, { expiresIn: '2h' });
             return res.status(200).json({
